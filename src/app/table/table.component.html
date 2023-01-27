@@ -1,0 +1,53 @@
+<div class="container">
+  <h1>Add Update User here</h1>
+  <form [formGroup]="myform" (ngSubmit)="OnSubmit()">
+    <div class="form-group">
+      <label for="nameInputEmail1">UserName</label>
+      <input type="name" class="form-control" id="nameInputEmail1" formControlName="name" placeholder="Enter Username">
+      <span style="color: red;" *ngIf="myform.controls['name'].hasError('required') && myform.controls['name'].touched">Please Enter Name</span>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1"formControlName="email" placeholder="Enter email">
+      <span style="color: red;" *ngIf="myform.controls['email'].hasError('required') && myform.controls['email'].touched">Please Enter Email</span>
+    </div>
+    <div class="form-group">
+      <label for="numberInputEmail1">Phone number</label>
+      <input type="number" class="form-control" id="exampleInputEmail1" formControlName="number" placeholder="Enter Phone number">
+      <span style="color: red;" *ngIf="myform.controls['number'].hasError('required') && myform.controls['number'].touched">Please Enter Phone number</span>
+    </div>
+    <button type="submit" class="btn btn-success" [disabled]="!myform.valid">{{ !editUser ? "Submit" : "Update" }}</button>
+  </form>
+  </div>
+<br>
+  <div class="container">
+    <input type="text" class="form-control" [(ngModel)]="searchText" placeholder="Search users by name....">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">username</th>
+        <th scope="col">email</th>
+        <th scope="col">phone number</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngIf="users.length > 0; else noRecords">
+          <tr *ngFor="let user of users | searchUsers: searchText; index as i;">
+            <th scope="row" >{{i+1}}</th>
+            <td>{{user.name}} </td>
+            <td>{{user.email}}</td>
+            <td>{{user.number}}</td>
+            <td><a class="btn btn-primary" (click)="OnEditUser(i)">Edit</a></td>
+            <td><button type="button" class="btn btn-danger" (click)="OnDeleteUser(i)">Delete</button></td>
+          </tr>
+        </ng-container>
+      <ng-template #noRecords>
+        <div class="container text-center">
+          <h3>No Records Found.</h3>
+        </div>
+      </ng-template>
+    </tbody>
+  </table>

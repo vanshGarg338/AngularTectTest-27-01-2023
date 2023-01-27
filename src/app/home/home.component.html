@@ -1,0 +1,16 @@
+<div class="container">
+  <h4 class="mt-3" >Please Login</h4>
+<form  [formGroup]="loginForm" (ngSubmit)="OnSubmit()" >
+  <label for="email">Email:</label>
+
+  <input type="email" class="form-control" id="email" placeholder="Enter email" formControlName="email">
+  <span style="color: red;" *ngIf="loginForm.controls['email'].hasError('required') &&
+  loginForm.controls['email'].touched  ">Valid email is required</span>
+  <br>
+  <label for="pwd">Password:</label>
+  <input type="password" class="form-control" id="pwd" placeholder="Enter password" formControlName="password">
+  <span style="color: red;" *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched ">Password is required</span>
+  <br>
+  <button type="submit" class="btn btn-primary mt-2" [disabled]="!loginForm.valid">Submit</button>
+</form>
+</div>
